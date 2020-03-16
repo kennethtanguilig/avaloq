@@ -1,0 +1,69 @@
+<!--The whole content below can be removed with the new code.-->
+<div style="text-align:center">
+  <h1>
+    {{title}}!!
+  </h1>
+  <form (ngSubmit)="onSubmit()" [formGroup]="angForm" novalidate>
+    <div class="form-group">
+      <label class="center-block">Dice Count:
+        <input class="form-control" formControlName="diceCount">
+      </label>
+    </div>
+    <div
+      *ngIf="angForm.controls['diceCount'].invalid && (angForm.controls['diceCount'].dirty || angForm.controls['diceCount'].touched)"
+      class="alert alert-danger">
+      <div *ngIf="angForm.controls['diceCount'].errors.required">
+        Dice Count is required.
+      </div>
+    </div>
+    <!-- <div class="form-group">
+          <label class="center-block">Dice Face:
+            <input class="form-control" formControlName="diceFaces">
+          </label>
+        </div> -->
+    <div class="form-group">
+      <label for="status">Dice Face: </label>
+      <select class="form-control" formControlName="diceFaces" [(ngModel)]="angForm.diceFaces">
+        <option [value]="4" [selected]="angForm.diceFaces == 4">4</option>
+        <option [value]="6" [selected]="angForm.diceFaces == 6">6</option>
+        <option [value]="8" [selected]="angForm.diceFaces == 8">8</option>
+        <option [value]="10" [selected]="angForm.diceFaces == 0">10</option>
+        <option [value]="12" [selected]="angForm.diceFaces == 12">12</option>
+        <option [value]="20" [selected]="angForm.diceFaces == 20">20</option>
+        <option [value]="100" [selected]="angForm.diceFaces == 100">100</option>
+      </select>
+    </div>
+    <div
+      *ngIf="angForm.controls['diceFaces'].invalid && (angForm.controls['diceFaces'].dirty || angForm.controls['diceFaces'].touched)"
+      class="alert alert-danger">
+      <div *ngIf="angForm.controls['diceFaces'].errors.required">
+        Dice Faces is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="center-block">Roll Count:
+        <input class="form-control" formControlName="diceRollCount">
+      </label>
+    </div>
+    <div
+      *ngIf="angForm.controls['diceRollCount'].invalid && (angForm.controls['diceRollCount'].dirty || angForm.controls['diceRollCount'].touched)"
+      class="alert alert-danger">
+      <div *ngIf="angForm.controls['diceRollCount'].errors.required">
+        Roll count is required.
+      </div>
+    </div>
+    <button type="submit" [disabled]="angForm.pristine">Save</button>
+    <button type="reset" (click)="revert()" [disabled]="angForm.pristine">
+      Revert
+    </button>
+  </form>
+  <p>Last Diced Rolled: {{parseRolledDice(diceRolled)}}</p>
+  <ul>
+    <li *ngFor="let recipient of diceRolled | keyvalue">
+        {{recipient.key}} --> {{recipient.value}}
+    </li>
+</ul>
+  <!-- <p>Form value: {{ angForm.value | json }}</p>
+  <p>Form status: {{ angForm.status | json }}</p> -->
+
+</div>
